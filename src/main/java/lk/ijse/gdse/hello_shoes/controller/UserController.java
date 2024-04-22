@@ -12,21 +12,22 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UserController {
-    private final AuthenticationService authenticationService;
+//    private final AuthenticationService authenticationService;
     @GetMapping("/health")
     public String healthCheck(){
         System.out.println("User Health Test");
         return "User Health Test";
     }
 
-    //signUp
-    @PostMapping("signUp")
-    public ResponseEntity<JWTAuthResponse> signUp(@RequestBody SignUp signUp){
-        return ResponseEntity.ok(authenticationService.signUp(signUp));
-    }
-
-    //signIn
-    public ResponseEntity<JWTAuthResponse> signIn(@RequestBody SignIn signIn){
-        return ResponseEntity.ok(authenticationService.signIn(signIn));
-    }
+//    //signUp
+//    @PostMapping("/signUp")
+//    public ResponseEntity<JWTAuthResponse> signUp(@RequestBody SignUp signUp){
+//        return ResponseEntity.ok(authenticationService.signUp(signUp));
+//    }
+//
+//    //signIn
+//    @PostMapping("/signIn")
+//    public ResponseEntity<JWTAuthResponse> signIn(@RequestBody SignIn signIn){
+//        return ResponseEntity.ok(authenticationService.signIn(signIn));
+//    }
 }
