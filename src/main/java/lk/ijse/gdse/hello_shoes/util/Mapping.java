@@ -9,6 +9,8 @@ import lk.ijse.gdse.hello_shoes.entity.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class Mapping {
     private  final ModelMapper mapper;
@@ -38,6 +40,10 @@ public class Mapping {
         return mapper.map(customerDTO,Customer.class);
     }
 
+    public List<CustomerDTO> toCustomerList(List<Customer> customers){
+        return mapper.map(customers,List.class);
+    }
+
     // -----------  supplier mapping  -------------
 
     public SupplierDTO toSupplierDto(Supplier supplier){
@@ -46,5 +52,9 @@ public class Mapping {
 
     public Supplier toSupplierEntity(SupplierDTO supplierDTO){
         return mapper.map(supplierDTO,Supplier.class);
+    }
+
+    public List<SupplierDTO> toSupplierList(List<Supplier> suppliers){
+        return mapper.map(suppliers,List.class);
     }
 }
