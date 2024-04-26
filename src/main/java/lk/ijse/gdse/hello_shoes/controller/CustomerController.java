@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -33,8 +34,13 @@ public class CustomerController {
     }
 
     @DeleteMapping("/delete")
-    public boolean deleteCustomer(@PathVariable("id") String id){
+    public boolean deleteCustomer(@RequestPart("id") String id){
         return customerService.deleteCustomer(id);
+    }
+
+    @GetMapping("/getAllCus")
+    public List<CustomerDTO> getAllCustomer(){
+        return customerService.getAllCustomer();
     }
 }
 

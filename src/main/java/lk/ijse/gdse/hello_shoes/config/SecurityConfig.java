@@ -21,7 +21,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableMethodSecurity
 public class SecurityConfig {
     private final UserService userService;
     private final JWTConfigurationFilter jwtConfigurationFilter;
@@ -29,7 +28,7 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(req->req.requestMatchers("api/v1/user/**")
+                .authorizeHttpRequests(req->req.requestMatchers("api/v1/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
