@@ -33,4 +33,6 @@ public class Customer implements SuperEntity{
     @Column(unique = true)
     private String email;
     private Timestamp recent_purchase_date_and_time;
+
+
 }

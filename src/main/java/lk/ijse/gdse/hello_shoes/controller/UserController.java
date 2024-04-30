@@ -5,12 +5,14 @@ import lk.ijse.gdse.hello_shoes.reqAndrsp.secure.SignIn;
 import lk.ijse.gdse.hello_shoes.reqAndrsp.secure.SignUp;
 import lk.ijse.gdse.hello_shoes.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
     private final AuthenticationService authenticationService;
     @GetMapping("/health")
@@ -28,6 +30,7 @@ public class UserController {
     //signIn
     @PostMapping("/signIn")
     public ResponseEntity<JWTAuthResponse> signIn(@RequestBody SignIn signIn){
+        log.info("SignIn Done.");
         return ResponseEntity.ok(authenticationService.signIn(signIn));
     }
 }
