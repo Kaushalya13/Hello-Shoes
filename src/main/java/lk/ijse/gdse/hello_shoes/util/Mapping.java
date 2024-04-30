@@ -1,9 +1,11 @@
 package lk.ijse.gdse.hello_shoes.util;
 
 import lk.ijse.gdse.hello_shoes.dto.CustomerDTO;
+import lk.ijse.gdse.hello_shoes.dto.InventoryDTO;
 import lk.ijse.gdse.hello_shoes.dto.SupplierDTO;
 import lk.ijse.gdse.hello_shoes.dto.UserDTO;
 import lk.ijse.gdse.hello_shoes.entity.Customer;
+import lk.ijse.gdse.hello_shoes.entity.Inventory;
 import lk.ijse.gdse.hello_shoes.entity.Supplier;
 import lk.ijse.gdse.hello_shoes.entity.User;
 import org.modelmapper.ModelMapper;
@@ -56,5 +58,20 @@ public class Mapping {
 
     public List<SupplierDTO> toSupplierList(List<Supplier> suppliers){
         return mapper.map(suppliers,List.class);
+    }
+
+
+    // -----------  Inventory mapping  -------------
+
+    public InventoryDTO toInventoryDto(Inventory inventory){
+        return mapper.map(inventory,InventoryDTO.class);
+    }
+
+    public Inventory toInventoryEntity(InventoryDTO inventoryDTO){
+        return mapper.map(inventoryDTO,Inventory.class);
+    }
+
+    public List<InventoryDTO> toInventoryList(List<Inventory> inventories){
+        return mapper.map(inventories,List.class);
     }
 }
