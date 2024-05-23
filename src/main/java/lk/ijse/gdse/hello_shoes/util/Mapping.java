@@ -1,13 +1,7 @@
 package lk.ijse.gdse.hello_shoes.util;
 
-import lk.ijse.gdse.hello_shoes.dto.CustomerDTO;
-import lk.ijse.gdse.hello_shoes.dto.InventoryDTO;
-import lk.ijse.gdse.hello_shoes.dto.SupplierDTO;
-import lk.ijse.gdse.hello_shoes.dto.UserDTO;
-import lk.ijse.gdse.hello_shoes.entity.Customer;
-import lk.ijse.gdse.hello_shoes.entity.Inventory;
-import lk.ijse.gdse.hello_shoes.entity.Supplier;
-import lk.ijse.gdse.hello_shoes.entity.User;
+import lk.ijse.gdse.hello_shoes.dto.*;
+import lk.ijse.gdse.hello_shoes.entity.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +25,17 @@ public class Mapping {
         return mapper.map(userDTO, User.class);
     }
 
+    // -----------  employee mapping  -------------
+
+    public EmployeeDTO toEmployeeDTO(Employee employee){
+        return mapper.map(employee, EmployeeDTO.class);
+    }
+    public Employee toEmployeeEntity(EmployeeDTO employeeDTO){
+        return mapper.map(employeeDTO, Employee.class);
+    }
+    public List<EmployeeDTO> toEmployeeList(List<Employee> employees){
+        return mapper.map(employees,List.class);
+    }
 
     // -----------  customer mapping  -------------
 
