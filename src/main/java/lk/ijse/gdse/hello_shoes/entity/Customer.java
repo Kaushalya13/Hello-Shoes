@@ -4,13 +4,17 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@ToString
 @Entity
 @Table(name = "customer")
 public class Customer implements SuperEntity{
@@ -19,11 +23,11 @@ public class Customer implements SuperEntity{
     private String cus_name;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private Date join_date_as_a_loyalty_customer;
+    private String join_date_as_a_loyalty_customer;
     @Enumerated(EnumType.STRING)
     private Level level;
     private int total_points;
-    private Date dob;
+    private String dob;
     private String address_line_01;
     private String address_line_02;
     private String address_line_03;
@@ -32,7 +36,9 @@ public class Customer implements SuperEntity{
     private String contact_no;
     @Column(unique = true)
     private String email;
-    private Timestamp recent_purchase_date_and_time;
+    private String recent_purchase_date_and_time;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Sale> sales = new ArrayList<>();
 
 }

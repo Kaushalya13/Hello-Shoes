@@ -13,6 +13,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/customer")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
@@ -23,9 +24,11 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
-        customerDTO.setCus_code(UUID.randomUUID().toString());
+    public boolean saveCustomer(@RequestBody CustomerDTO customerDTO){
+        System.out.println(customerDTO);
+        customerDTO.setCus_code(customerService.genarateteId());
         return customerService.saveCustomer(customerDTO);
+
     }
 
     @PutMapping(value = "/update",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -38,7 +41,7 @@ public class CustomerController {
         return customerService.deleteCustomer(id);
     }
 
-    @GetMapping("/getAllCus")
+    @GetMapping(produces = "application/json")
     public List<CustomerDTO> getAllCustomer(){
         return customerService.getAllCustomer();
     }

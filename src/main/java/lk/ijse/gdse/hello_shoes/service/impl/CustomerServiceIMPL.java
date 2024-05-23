@@ -8,6 +8,7 @@ import lk.ijse.gdse.hello_shoes.util.Mapping;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,9 +22,15 @@ public class CustomerServiceIMPL implements CustomerService {
     private final Mapping mapping;
 
     @Override
-    public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
-        customerDTO.setCus_code(UUID.randomUUID().toString());
-        return mapping.toCustomerDto(customerRepo.save(mapping.toCustomerEntity(customerDTO)));
+    public boolean saveCustomer(CustomerDTO customerDTO) {
+//        System.out.println("cccccc   "+ customerDTO);
+        Optional<Customer> byEmail = customerRepo.findByEmail(customerDTO.getEmail());
+        if (byEmail.isPresent()) {
+            return false;
+        } else {
+            customerRepo.save(mapping.toCustomerEntity(customerDTO));
+            return true;
+        }
     }
 
     @Override
@@ -59,4 +66,18 @@ public class CustomerServiceIMPL implements CustomerService {
     public List<CustomerDTO> getAllCustomer() {
         return mapping.toCustomerList(customerRepo.findAll());
     }
+
+    @Override
+    public String genarateteId() {
+        if (customerRepo.findById()== null){
+            return "C0001";
+        }
+
+        String num = customerRepo.findById().substring(1);
+        int lastNumber = Integer.parseInt(num);
+        int nextNumber = lastNumber + 1;
+        String nextId = "C" + String.format("%04d", nextNumber);
+        return nextId;
+    }
+
 }
