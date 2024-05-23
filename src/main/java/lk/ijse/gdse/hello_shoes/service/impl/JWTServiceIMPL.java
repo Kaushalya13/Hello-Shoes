@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lk.ijse.gdse.hello_shoes.service.JWTService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,9 @@ import java.util.function.Function;
 
 
 @Service
+@Slf4j
 public class JWTServiceIMPL implements JWTService {
-    @Value("${token.key}")
+    @Value("${token.signing.key}")
     private String jwtKey;
     @Override
     public String extractUserName(String token) {
@@ -33,7 +35,10 @@ public class JWTServiceIMPL implements JWTService {
 
     @Override
     public boolean validToken(String token, UserDetails userDetails) {
-        var username = extractExpiration(token);
+        var username = extractUserName(token);
+        log.info("Username {}",username);
+        log.info("Username Ok {}",username.equals(userDetails.getUsername()));
+        log.info("Is token Expired {}",isTokenExpired(token));
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
