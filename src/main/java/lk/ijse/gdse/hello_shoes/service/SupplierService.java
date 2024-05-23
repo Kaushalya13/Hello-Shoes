@@ -9,4 +9,6 @@ public interface SupplierService {
     boolean updateSupplier(String id,SupplierDTO supplierDTO);
     boolean deleteSupplier(String id);
     List<SupplierDTO> getAllSupplier();
+    String generateId();
+    List<String> getSupplierIds();
 }

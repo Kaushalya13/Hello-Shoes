@@ -56,4 +56,14 @@ public class SupplierServiceIMPL implements SupplierService {
     public List<SupplierDTO> getAllSupplier() {
         return mapping.toSupplierList(supplierRepo.findAll());
     }
+
+    @Override
+    public String generateId() {
+        return null;
+    }
+
+    @Override
+    public List<String> getSupplierIds() {
+        return null;
+    }
 }
