@@ -1,11 +1,15 @@
 package lk.ijse.gdse.hello_shoes.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +21,7 @@ public class Sale implements SuperEntity{
     private String order_id;
     private String cus_name;
     private double total_price;
-    private Timestamp purchase_date;
+    private Date purchase_date;
     private String payment_method;
     private double added_points;
     private String cashier_name;
@@ -26,8 +30,13 @@ public class Sale implements SuperEntity{
     @JoinColumn(name = "userId")
     private User user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cus_code")
     private Customer customer;
+
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
+    private Set<SalesDetails> saleDetails = new HashSet<>();
+
 
 }
