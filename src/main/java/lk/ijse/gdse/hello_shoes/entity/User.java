@@ -18,7 +18,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "user")
-public class User implements UserDetails {
+public class User implements UserDetails,SuperEntity{
     @Id
     private String userId;
     @Column(unique = true)
@@ -27,15 +27,19 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToOne
+    @JoinColumn(name = "emp_code")
+    private Employee employee;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Sale> sales = new HashSet<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority("ROLE"+role.name()));
         return authorities;
     }
-
-    @Override
-    public String getPassword(){return password;}
 
     @Override
     public String getUsername() {
