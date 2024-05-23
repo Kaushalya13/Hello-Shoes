@@ -1,11 +1,14 @@
 package lk.ijse.gdse.hello_shoes.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -25,8 +28,15 @@ public class Inventory implements SuperEntity{
     private GenderType genderType;
     private String occasion;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "inventory")
     private Set<SalesDetails> saleDetails = new HashSet<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "inventory")
+    private Set<SupplierDetails> supplierDetails = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "inventory")
+    private List<Size> sizes = new ArrayList<>();
 }

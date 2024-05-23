@@ -55,4 +55,19 @@ public class InventoryServiceIMPL implements InventoryService {
     public List<InventoryDTO> getAllInventory() {
         return mapping.toInventoryList(inventoryRepo.findAll());
     }
+
+    @Override
+    public String generateId(String occupation, String gender) {
+        return null;
+    }
+
+    @Override
+    public boolean updateImg(String itemCode, String pic) {
+        return false;
+    }
+
+    @Override
+    public List<String> getSize(String itemCode) {
+        return null;
+    }
 }

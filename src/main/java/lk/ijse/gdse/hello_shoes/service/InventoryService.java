@@ -9,4 +9,7 @@ public interface InventoryService {
     boolean updateInventory(String id, InventoryDTO inventoryDTO);
     boolean deleteInventory(String  id);
     List<InventoryDTO> getAllInventory();
+    String generateId(String occupation, String gender);
+    boolean updateImg(String itemCode, String pic);
+    List<String> getSize(String itemCode);
 }
