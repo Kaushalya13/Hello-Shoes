@@ -22,10 +22,10 @@ public class UserController {
     }
 
     //signUp
-    @PostMapping("/signUp")
-    public ResponseEntity<JWTAuthResponse> signUp(){
-        return ResponseEntity.ok(authenticationService.signUp());
-    }
+//    @PostMapping("/signUp")
+//    public ResponseEntity<JWTAuthResponse> signUp(){
+//        return ResponseEntity.ok(authenticationService.signUp());
+//    }
 
     //signIn
     @PostMapping("/signIn")
