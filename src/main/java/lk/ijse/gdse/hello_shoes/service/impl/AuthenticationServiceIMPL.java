@@ -38,44 +38,29 @@ public class AuthenticationServiceIMPL implements AuthenticationService {
     private EntityManager entityManager;
     @Override
     public JWTAuthResponse signIn(SignIn signIn) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(signIn.getEmail(), signIn.getPassword()));
-        var userByEmail = userRepo.findByEmail(signIn.getEmail())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        var generatedToken = jwtService.generateToken(userByEmail);
-        return JWTAuthResponse.builder().token(generatedToken).build();
-    }
+        Long count = (Long) entityManager.createNativeQuery("SELECT COUNT(*) FROM user").getSingleResult();
+        // if user table is empty add initial admin user
+        if (count == null || count == 0) {
 
-    @Override
-    public JWTAuthResponse signUp() {
-        Long  count = (Long) entityManager.createNativeQuery("SELECT COUNT(*) FROM user").getSingleResult();
-        if (count == null || count == 0){
-            System.out.println("User Table Empty");
+            UserDTO userDTO = UserDTO.builder().userId(UUID.randomUUID().toString()).
+                    email("admin@shoeshop.com").
+                    password(passwordEncoder.encode("1234")).
+                    role(Role.valueOf("ADMIN")).build();
 
-            UserDTO builder = UserDTO.builder()
-                    .userId(UUID.randomUUID().toString())
-                    .email("kaushalya@gmail.com")
-                    .password(passwordEncoder.encode("1234"))
-                    .role(Role.valueOf("ADMIN"))
-                    .build();
-
-            User user = userRepo.save(mapping.toUserEntity(builder));
-            String generateToken = jwtService.generateToken(user);
-            return JWTAuthResponse.builder().token(generateToken).build();
-        }else {
-            System.out.println("User Table Empty" + count);
-            return JWTAuthResponse.builder().token("User table is not empty").build();
+            User user = userRepo.save(mapping.toUserEntity(userDTO));
         }
+
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signIn.getEmail(), signIn.getPassword()));
+        User userByEmail = userRepo.findByEmail(signIn.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        String generatedToken = jwtService.generateToken(userByEmail);
+        return JWTAuthResponse.builder().token(generatedToken).user(mapping.toUserDto(userByEmail)).build();
     }
 
+
+
     @Override
-    public JWTAuthResponse signUp(SignUp signUp, EmployeeDTO employeeDTO) {
-        UserDTO buildUser = UserDTO.builder()
-                .userId(UUID.randomUUID().toString())
-                .email(signUp.getEmail())
-                .password(passwordEncoder.encode(signUp.getPassword()))
-                .role(Role.valueOf(signUp.getRole()))
-                .build();
+    public UserDTO signUp(SignUp signUp, EmployeeDTO employeeDTO) {
+        UserDTO buildUser = UserDTO.builder().userId(UUID.randomUUID().toString()).email(signUp.getEmail()).password(passwordEncoder.encode(signUp.getPassword())).role(Role.valueOf(signUp.getRole())).build();
 
         User saveUser = mapping.toUserEntity(buildUser);
         Employee employee = new Employee();
@@ -84,6 +69,6 @@ public class AuthenticationServiceIMPL implements AuthenticationService {
 
         User user = userRepo.save(saveUser);
         String generateToken = jwtService.generateToken(user);
-        return JWTAuthResponse.builder().token(generateToken).build();
+        return buildUser;
     }
 }
