@@ -66,38 +66,4 @@ public class JWTConfigurationFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
-//
-//            @NonNull HttpServletRequest request,
-//            @NonNull HttpServletResponse response,
-//            @NonNull FilterChain filterChain) throws ServletException, IOException {
-//        final String userEmail;
-//        final  String jwt;
-//        final String authorizationHeader = request.getHeader("Authorization");
-//
-//        //validation - Get Auth Header status
-//        if(StringUtils.isEmpty(authorizationHeader) || !authorizationHeader.startsWith("Bearer")) {
-//            filterChain.doFilter(request,response);
-//            return;
-//        }
-//        jwt = authorizationHeader.substring(7);
-//        userEmail = jwtService.extractUserName(jwt);
-//
-//        //validation - Email validation and status of SecurityContextHolder
-//        if(StringUtils.isNotEmpty(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null){
-//            UserDetails userDetails =
-//                    userService.userDetailsService().loadUserByUsername(userEmail);
-//            //Validation of Token Status
-//            if(jwtService.validToken(jwt, userDetails)) {
-//                SecurityContext emptyContext =
-//                        SecurityContextHolder.createEmptyContext();
-//                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-//                        userDetails, null, userDetails.getAuthorities()
-//                );
-//                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//                emptyContext.setAuthentication(authToken);
-//                SecurityContextHolder.setContext(emptyContext);
-//            }
-//        }
-//        filterChain.doFilter(request,response);
-//    }
 }

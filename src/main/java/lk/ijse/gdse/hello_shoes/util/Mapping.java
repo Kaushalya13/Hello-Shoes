@@ -18,6 +18,7 @@ public class Mapping {
     // -----------  user mapping  -------------
 
     public UserDTO toUserDto(User user){
+        user.setPassword(null);
         return mapper.map(user,UserDTO.class);
     }
 
@@ -32,9 +33,6 @@ public class Mapping {
     }
     public Employee toEmployeeEntity(EmployeeDTO employeeDTO){
         return mapper.map(employeeDTO, Employee.class);
-    }
-    public List<EmployeeDTO> toEmployeeList(List<Employee> employees){
-        return mapper.map(employees,List.class);
     }
 
     // -----------  customer mapping  -------------
