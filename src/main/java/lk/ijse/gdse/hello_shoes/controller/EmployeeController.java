@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -125,5 +126,10 @@ public class EmployeeController {
     @DeleteMapping("/delete")
     public boolean deleteEmployee(String email){
         return employeeService.deleteEmployee(email);
+    }
+
+    @GetMapping(produces = "application/json")
+    public List<EmployeeDTO> getAllEmployee(){
+        return employeeService.getAllEmployee();
     }
 }
