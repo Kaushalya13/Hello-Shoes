@@ -37,7 +37,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/delete")
-    public boolean deleteCustomer(@RequestPart("id") String id){
+    public boolean deleteCustomer(@RequestPart("cus_code") String id){
         return customerService.deleteCustomer(id);
     }
 
