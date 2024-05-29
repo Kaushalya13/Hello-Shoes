@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -20,16 +19,20 @@ public class SupplierServiceIMPL implements SupplierService {
     private final SupplierRepo supplierRepo;
     private final Mapping mapping;
     @Override
-    public SupplierDTO saveSupplier(SupplierDTO supplierDTO) {
-        supplierDTO.setSup_code(UUID.randomUUID().toString());
-        return mapping.toSupplierDto(supplierRepo.save(mapping.toSupplierEntity(supplierDTO)));
+    public boolean saveSupplier(SupplierDTO supplierDTO) {
+        Optional<Supplier> bySupId = supplierRepo.findByEmail(supplierDTO.getSup_code());
+        if (bySupId.isPresent()) {
+            return false;
+        } else {
+            supplierRepo.save(mapping.toSupplierEntity(supplierDTO));
+            return true;
+        }
     }
 
     @Override
     public boolean updateSupplier(String id, SupplierDTO supplierDTO) {
         Optional<Supplier> supplier = supplierRepo.findById(id);
         if (supplier.isPresent()){
-            supplier.get().setSup_code(supplierDTO.getSup_code());
             supplier.get().setSup_name(supplierDTO.getSup_name());
             supplier.get().setCategory(supplierDTO.getCategory());
             supplier.get().setAddress_line_01(supplierDTO.getAddress_line_01());
@@ -59,7 +62,15 @@ public class SupplierServiceIMPL implements SupplierService {
 
     @Override
     public String generateId() {
-        return null;
+        if (supplierRepo.findLastId()==null){
+            return "S0001";
+        }
+
+        String num = supplierRepo.findLastId().substring(1);
+        int lastNum = Integer.parseInt(num);
+        int nextNum = lastNum + 1;
+        String nextSupId = "S" + String.format("%04d", nextNum);
+        return nextSupId;
     }
 
     @Override
