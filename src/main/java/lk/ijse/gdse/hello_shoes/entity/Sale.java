@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "sale")
+@ToString(exclude = "saleDetails")
 public class Sale implements SuperEntity{
     @Id
     private String order_id;

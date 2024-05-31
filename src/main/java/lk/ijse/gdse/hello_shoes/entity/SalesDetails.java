@@ -28,7 +28,7 @@ public class SalesDetails {
 
     private String item_name;
     private int qty;
-    private double cost;
+    private int size;
     private double unit_price;
     private double total;
 }
