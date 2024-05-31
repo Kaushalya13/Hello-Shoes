@@ -27,4 +27,5 @@ public class CustomerDTO {
     private String contact_no;
     private String email;
     private String recent_purchase_date_and_time;
+    private String password;
 }
