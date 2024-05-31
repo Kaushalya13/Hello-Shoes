@@ -5,6 +5,7 @@ import lk.ijse.gdse.hello_shoes.entity.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -81,4 +82,32 @@ public class Mapping {
     public List<InventoryDTO> toInventoryList(List<Inventory> inventories){
         return mapper.map(inventories,List.class);
     }
+
+    // -----------  Size mapping  -------------
+
+    public SizeDTO toSizeDTO(Size size) {
+        return  mapper.map(size, SizeDTO.class);
+    }
+
+    public Size toSize(SizeDTO sizeDTO) {
+        return  mapper.map(sizeDTO, Size.class);
+    }
+
+    public List<SizeDTO> getSizeDTOList(List<Size> sizes) {
+        List<SizeDTO> dtos = new ArrayList<>();
+        for (Size size : sizes) {
+            SizeDTO sizeDTO = new SizeDTO();
+            sizeDTO.setSize(size.getSize());
+            sizeDTO.setQty(size.getQty());
+            sizeDTO.setUnit_price_sale(size.getUnit_price_sale());
+            sizeDTO.setUnit_price_buy(size.getUnit_price_buy());
+            sizeDTO.setExpected_profit(size.getExpected_profit());
+            sizeDTO.setProfit_margin(size.getProfit_margin());
+            sizeDTO.setItem_code(size.getInventory().getItem_code());
+            sizeDTO.setStatus(size.getStatus());
+            dtos.add(sizeDTO);
+        }
+        return dtos;
+    }
+
 }

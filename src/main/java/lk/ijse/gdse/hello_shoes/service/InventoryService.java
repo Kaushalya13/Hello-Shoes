@@ -5,7 +5,7 @@ import lk.ijse.gdse.hello_shoes.dto.InventoryDTO;
 import java.util.List;
 
 public interface InventoryService {
-    boolean saveInventory(InventoryDTO inventoryDTO);
+    boolean saveInventory(InventoryDTO inventoryDTO,String sup_code);
     boolean updateInventory(String id, InventoryDTO inventoryDTO);
     boolean deleteInventory(String  id);
     List<InventoryDTO> getAllInventory();
