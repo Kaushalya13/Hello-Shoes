@@ -24,8 +24,8 @@ public class Employee implements SuperEntity{
     private String designation;
     @Enumerated(EnumType.STRING)
     private Role role;
-    private Date dob;
-    private Date joinDate;
+    private String  dob;
+    private String joinDate;
     private String attached_branch;
     private String address_line_01;
     private String address_line_02;

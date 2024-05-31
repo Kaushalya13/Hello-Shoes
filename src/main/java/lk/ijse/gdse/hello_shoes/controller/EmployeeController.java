@@ -59,8 +59,8 @@ public class EmployeeController {
         employeeDTO.setStatus(status);
         employeeDTO.setDesignation(designation);
         employeeDTO.setRole(Role.valueOf(role));
-        employeeDTO.setDob(Date.valueOf(dob));
-        employeeDTO.setJoinDate(Date.valueOf(joinDate));
+        employeeDTO.setDob(dob);
+        employeeDTO.setJoinDate(joinDate);
         employeeDTO.setAttached_branch(attached_branch);
         employeeDTO.setAddress_line_01(address_line_01);
         employeeDTO.setAddress_line_02(address_line_02);
@@ -106,8 +106,8 @@ public class EmployeeController {
         employeeDTO.setStatus(status);
         employeeDTO.setDesignation(designation);
         employeeDTO.setRole(Role.valueOf(role));
-        employeeDTO.setDob(Date.valueOf(dob));
-        employeeDTO.setJoinDate(Date.valueOf(joinDate));
+        employeeDTO.setDob(dob);
+        employeeDTO.setJoinDate(joinDate);
         employeeDTO.setAttached_branch(attached_branch);
         employeeDTO.setAddress_line_01(address_line_01);
         employeeDTO.setAddress_line_02(address_line_02);
@@ -124,7 +124,7 @@ public class EmployeeController {
 
 
     @DeleteMapping("/delete")
-    public boolean deleteEmployee(String email){
+    public boolean deleteEmployee(@RequestPart("emp_code")String email){
         return employeeService.deleteEmployee(email);
     }
 
