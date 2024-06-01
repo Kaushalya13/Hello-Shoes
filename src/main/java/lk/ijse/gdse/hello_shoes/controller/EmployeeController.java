@@ -124,8 +124,8 @@ public class EmployeeController {
 
 
     @DeleteMapping("/delete")
-    public boolean deleteEmployee(@RequestPart("emp_code")String email){
-        return employeeService.deleteEmployee(email);
+    public boolean deleteEmployee(@RequestPart("emp_code")String id){
+        return employeeService.deleteEmployee(id);
     }
 
     @GetMapping(produces = "application/json")

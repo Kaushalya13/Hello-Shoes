@@ -88,12 +88,11 @@ public class SaleServiceIMPL implements SaleService {
 
         List<SalesDetails> saleDetails = new ArrayList<>();
         for (OrderItemDTO item : placeOrderDTO.getItems()) {
-            Inventory inventory = inventoryRepo.findById(item.getItem_code())
-                    .orElseThrow(() -> new Exception("Item not found"));
+            Optional<Inventory> inventory = inventoryRepo.findById(item.getItem_code());
 
             SalesDetails saleDetail = new SalesDetails();
             saleDetail.setOrder_detail_id(UUID.randomUUID().toString());
-            saleDetail.setInventory(inventory);
+            saleDetail.setInventory(inventory.get());
             saleDetail.setSale(savedSale);
             saleDetail.setItem_name(item.getItem_name());
             saleDetail.setQty(item.getQuantity());
