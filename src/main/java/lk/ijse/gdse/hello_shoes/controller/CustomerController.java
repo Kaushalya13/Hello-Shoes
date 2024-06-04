@@ -44,5 +44,15 @@ public class CustomerController {
     public List<CustomerDTO> getAllCustomer(){
         return customerService.getAllCustomer();
     }
+
+    @GetMapping("/getCustomerIds")
+    public List<String> getCustomerIds() {
+        return customerService.getCustomerIds();
+    }
+
+    @GetMapping("/getCustomer/{customer_id}")
+    public CustomerDTO getCustomer(@PathVariable String customer_id){
+        return customerService.getCustomer(customer_id);
+    }
 }
 

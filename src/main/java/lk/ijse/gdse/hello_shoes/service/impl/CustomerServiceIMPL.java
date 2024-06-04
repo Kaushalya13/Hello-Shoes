@@ -56,7 +56,8 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public boolean deleteCustomer(String id) {
-        customerRepo.deleteById(id);
+        Optional<Customer> customer = customerRepo.findByEmail(id);
+        customerRepo.delete(customer.get());
         return true;
     }
 
@@ -76,6 +77,23 @@ public class CustomerServiceIMPL implements CustomerService {
         int nextNumber = lastNumber + 1;
         String nextId = "C" + String.format("%04d", nextNumber);
         return nextId;
+    }
+
+    @Override
+    public List<String> getCustomerIds() {
+        return customerRepo.getCustomerIds();
+    }
+
+    @Override
+    public CustomerDTO getCustomer(String cus_code) {
+        Optional<Customer> customer = customerRepo.findById(cus_code);
+        return mapping.toCustomerDto(customer.get());
+    }
+
+    @Override
+    public CustomerDTO getSelectCustomer(String email) {
+        Optional<Customer> customer = customerRepo.findByEmail(email);
+        return mapping.toCustomerDto(customer.get());
     }
 
 }

@@ -10,4 +10,7 @@ public interface CustomerService {
     boolean deleteCustomer(String id);
     List<CustomerDTO> getAllCustomer();
     String genarateteId();
+    List<String> getCustomerIds();
+    CustomerDTO getCustomer(String cus_code);
+    CustomerDTO getSelectCustomer(String email);
 }
