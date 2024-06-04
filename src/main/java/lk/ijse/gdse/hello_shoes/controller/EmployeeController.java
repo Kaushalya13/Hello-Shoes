@@ -124,12 +124,17 @@ public class EmployeeController {
 
 
     @DeleteMapping("/delete")
-    public boolean deleteEmployee(@RequestPart("emp_code")String id){
-        return employeeService.deleteEmployee(id);
+    public boolean deleteEmployee(String email){
+        return employeeService.deleteEmployee(email);
     }
 
     @GetMapping(produces = "application/json")
     public List<EmployeeDTO> getAllEmployee(){
         return employeeService.getAllEmployee();
+    }
+
+    @GetMapping("/selectEmployee")
+    public EmployeeDTO selectEmployee(String email){
+        return employeeService.getEmployeeByEmail(email);
     }
 }

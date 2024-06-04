@@ -43,7 +43,7 @@ public class EmployeeServiceIMPL implements EmployeeService {
     }
 
     @Override
-    public boolean updateEmployee(String emp_code, EmployeeDTO employeeDTO, String password) {
+    public boolean updateEmployee(String emp_code, EmployeeDTO employeeDTO,String password) {
         Optional<Employee> employee = employeeRepo.findById(emp_code);
         String email = employee.get().getEmail();
 
@@ -97,6 +97,7 @@ public class EmployeeServiceIMPL implements EmployeeService {
 
     @Override
     public EmployeeDTO getEmployeeByEmail(String email) {
-        return null;
+        Optional<Employee> employee = employeeRepo.findByEmail(email);
+        return mapping.toEmployeeDTO(employee.get());
     }
 }
