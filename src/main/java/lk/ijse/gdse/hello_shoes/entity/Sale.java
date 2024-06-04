@@ -17,7 +17,6 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "sale")
-@ToString(exclude = "saleDetails")
 public class Sale implements SuperEntity{
     @Id
     private String order_id;

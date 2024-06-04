@@ -95,7 +95,7 @@ public class SaleServiceIMPL implements SaleService {
             saleDetail.setInventory(inventory.get());
             saleDetail.setSale(savedSale);
             saleDetail.setItem_name(item.getItem_name());
-            saleDetail.setQty(item.getQuantity());
+            saleDetail.setQuantity(item.getQuantity());
             saleDetail.setSize(item.getItem_size());
             saleDetail.setUnit_price(item.getUnit_price());
             saleDetail.setTotal(item.getTotal_price());
@@ -106,13 +106,13 @@ public class SaleServiceIMPL implements SaleService {
 
         for (SalesDetails saleDetail : saleDetails) {
             Inventory inventory = saleDetail.getInventory();
-            int soldQuantity = saleDetail.getQty();
+            int soldQuantity = saleDetail.getQuantity();
             int sizeToReduce = saleDetail.getSize();
 
             for (Size size : inventory.getSizes()) {
                 if (size.getSize() == sizeToReduce) {
-                    int currentQuantity = size.getQty();
-                    size.setQty(currentQuantity - soldQuantity);
+                    int currentQuantity = size.getQuantity();
+                    size.setQuantity(currentQuantity - soldQuantity);
                     break;
                 }
             }
