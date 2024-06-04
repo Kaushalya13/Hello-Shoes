@@ -20,7 +20,7 @@ public class Size {
     @ManyToOne
     @Id
     private Inventory inventory;
-    private int qty;
+    private int quantity;
     private double unit_price_sale;
     private double unit_price_buy;
     private double expected_profit;

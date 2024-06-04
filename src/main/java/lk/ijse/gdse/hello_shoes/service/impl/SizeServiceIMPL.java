@@ -30,6 +30,7 @@ public class SizeServiceIMPL implements SizeService {
             if (inventory.isPresent()){
                 Inventory inventory1 = inventory.get();
                 Size size = mapping.toSize(sizeDTO);
+                size.setInventory(inventory1);
                 try {
                     sizeRepo.save(size);
                     return true;

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class SizeDTO {
     private int size;
     private String item_code;
-    private int qty;
+    private int quantity;
     private double unit_price_sale;
     private double unit_price_buy;
     private double expected_profit;
