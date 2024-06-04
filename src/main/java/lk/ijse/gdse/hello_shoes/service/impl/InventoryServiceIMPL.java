@@ -22,7 +22,7 @@ import java.util.UUID;
 @Transactional
 @AllArgsConstructor
 public class InventoryServiceIMPL implements InventoryService {
-    private final InventoryRepo inventoryRepo;
+    private InventoryRepo inventoryRepo;
     private final Mapping mapping;
     private SupplierRepo supplierRepo;
     private SupplierDetailsService supplierDetailsService;
@@ -109,5 +109,11 @@ public class InventoryServiceIMPL implements InventoryService {
     @Override
     public List<String> getSize(String itemCode) {
         return inventoryRepo.getSize(itemCode);
+    }
+
+    @Override
+    public InventoryDTO selectInventoryById(String id) {
+        Optional<Inventory> inventory = inventoryRepo.findById(id);
+        return mapping.toInventoryDto(inventory.get());
     }
 }

@@ -98,7 +98,7 @@ public class Mapping {
         for (Size size : sizes) {
             SizeDTO sizeDTO = new SizeDTO();
             sizeDTO.setSize(size.getSize());
-            sizeDTO.setQty(size.getQty());
+            sizeDTO.setQuantity(size.getQuantity());
             sizeDTO.setUnit_price_sale(size.getUnit_price_sale());
             sizeDTO.setUnit_price_buy(size.getUnit_price_buy());
             sizeDTO.setExpected_profit(size.getExpected_profit());

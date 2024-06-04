@@ -12,4 +12,5 @@ public interface InventoryService {
     String generateId(String occupation, String gender);
     boolean updateImg(String itemCode, String pic);
     List<String> getSize(String itemCode);
+    InventoryDTO selectInventoryById(String id);
 }

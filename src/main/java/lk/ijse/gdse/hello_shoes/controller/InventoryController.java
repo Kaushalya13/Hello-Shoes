@@ -80,11 +80,11 @@ public class InventoryController {
 
 
     @DeleteMapping("/delete")
-    public boolean deleteInventory(@RequestPart("id") String id){
-        return inventoryService.deleteInventory(id);
+    public boolean deleteInventory(String item_code){
+        return inventoryService.deleteInventory(item_code);
     }
 
-    @GetMapping("/getAllInvent")
+    @GetMapping
     public List<InventoryDTO> getAllInventory(){
         return inventoryService.getAllInventory();
     }
@@ -95,6 +95,11 @@ public class InventoryController {
             @RequestPart("item_code") String item_pic
     ){
         return inventoryService.updateImg(item_code,UtilMatters.convertBase64(item_pic));
+    }
+
+    @GetMapping("/selectInventory")
+    public InventoryDTO selectInventory(String item_code){
+        return inventoryService.selectInventoryById(item_code);
     }
 
 }
