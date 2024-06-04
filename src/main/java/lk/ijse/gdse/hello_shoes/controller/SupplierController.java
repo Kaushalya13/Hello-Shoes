@@ -5,6 +5,7 @@ import lk.ijse.gdse.hello_shoes.service.SupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +30,8 @@ public class SupplierController {
         return supplierService.saveSupplier(supplierDTO);
     }
 
-    @PutMapping(value = "/update",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/update")
+//    @PreAuthorize("hasRole('ADMIN')")
     public boolean updateSupplier(@RequestBody SupplierDTO supplierDTO){
         return supplierService.updateSupplier(supplierDTO.getSup_code(),supplierDTO);
     }
@@ -42,5 +44,10 @@ public class SupplierController {
     @GetMapping(produces = "application/json")
     public List<SupplierDTO> getAllSupplier(){
         return supplierService.getAllSupplier();
+    }
+
+    @GetMapping("/getSupplierIds")
+    public List<String> getSupplierIds(){
+        return supplierService.getSupplierIds();
     }
 }

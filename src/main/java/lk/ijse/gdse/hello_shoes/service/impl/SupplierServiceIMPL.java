@@ -20,13 +20,8 @@ public class SupplierServiceIMPL implements SupplierService {
     private final Mapping mapping;
     @Override
     public boolean saveSupplier(SupplierDTO supplierDTO) {
-        Optional<Supplier> bySupId = supplierRepo.findByEmail(supplierDTO.getSup_code());
-        if (bySupId.isPresent()) {
-            return false;
-        } else {
-            supplierRepo.save(mapping.toSupplierEntity(supplierDTO));
-            return true;
-        }
+        Supplier save = supplierRepo.save(mapping.toSupplierEntity(supplierDTO));
+        return save != null;
     }
 
     @Override
@@ -50,9 +45,13 @@ public class SupplierServiceIMPL implements SupplierService {
     }
 
     @Override
-    public boolean deleteSupplier(String id) {
-        supplierRepo.deleteById(id);
-        return true;
+    public boolean deleteSupplier(String email) {
+        Optional<Supplier> byEmail = supplierRepo.findByEmail(email);
+        if (byEmail.isPresent()){
+            supplierRepo.delete(byEmail.get());
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -75,6 +74,12 @@ public class SupplierServiceIMPL implements SupplierService {
 
     @Override
     public List<String> getSupplierIds() {
-        return null;
+        return supplierRepo.getSupplierIds();
+    }
+
+    @Override
+    public SupplierDTO selectSupplierByEmail(String email) {
+        Optional<Supplier> supplier = supplierRepo.findByEmail(email);
+        return mapping.toSupplierDto(supplier.get());
     }
 }
