@@ -19,6 +19,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "user")
+@ToString(exclude = "sales")
 public class User implements UserDetails,SuperEntity{
     @Id
     private String userId;
