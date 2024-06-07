@@ -11,9 +11,9 @@ public class SizeDTO {
     private int size;
     private String item_code;
     private int quantity;
+    private double profit_margin;
     private double unit_price_sale;
     private double unit_price_buy;
     private double expected_profit;
     private String status;
-    private double profit_margin;
 }
